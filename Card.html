@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hover Cards</title>
+</head>
+<style>
+    *
+    {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+    }
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        min-height: 100vh;
+        background: #284c70;
+    }
+    .box
+    {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 300px;
+        width: 300px;
+        margin: 40px;
+        background: #111;
+        transition: .5s;
+    }
+    .box:hover
+    {
+        height: 400px;
+    }
+    .box .imgBx
+    {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        padding-top: 0px;
+        box-sizing: border-box;
+    }
+    .box .imgBx img{
+        max-width: 100%;
+        opacity: 0;
+        transition: .5s;
+    }
+    .box:hover .imgBx img
+    {
+        opacity: 1;
+    }
+    .box::before
+    {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: #fff;
+        z-index: -1;
+    }
+    .box::after
+    {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: #fff;
+        z-index: -2;
+        filter: blur(40px);
+    }
+    .box::before,
+    .box::after
+    {
+        background: linear-gradient(235deg, #89ff00,#010615,#00bcd4);
+    }
+    .box:nth-child(2):before,
+    .box:nth-child(2):after
+    {
+        background: linear-gradient(235deg, #ff005e,#010615,#fbff00);
+    }
+    .box:nth-child(3):before,
+    .box:nth-child(3):after
+    {
+        background: linear-gradient(235deg, #772aff,#010615,#2196F3);
+    }
+    .box .content
+    {
+        position: absolute;
+        bottom: 10px;
+        left: 20px;
+        right: 20px;
+        height: 90px;
+        width: 90%;
+        background: rgba(0, 0, 0, 0.404);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        opacity: 0;
+        color: #fff;
+        transition: .5s;
+    }
+    .box:hover .content{
+        opacity: 1;
+    }
+    h2
+    {
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 2px;
+    }
+    h2 span
+    {
+        font-size: 14px;
+        font-weight: 200;
+        letter-spacing: 2px;
+    }
+    a{
+        position: relative;
+        height: 50px;
+        width: 150px;
+        background: linear-gradient(12deg , #ff09, #f009);
+        border-radius: 30px;
+        margin: 10px;
+        font-size: 1.2em;
+        text-align: center;
+        letter-spacing: 2px;
+        line-height: 50px;
+        text-decoration: none;
+        overflow: hidden;
+        text-transform: uppercase;
+        color: #fff;
+        
+    }
+    a span{
+        position: absolute;
+        background: rgba(255, 255, 255, 0.493);
+        transform: translate(-50%,-50%);
+        pointer-events: none;
+        border-radius: 50%;
+        animation: animate 1s linear infinite;
+    }
+    @keyframes animate
+    {
+        0%
+        {
+            height: 0;
+            width: 0;
+            opacity: .5;
+        }
+        100%
+        {
+            height: 200px;
+            width: 200px;
+            opacity: .5;
+        }
+    }
+</style>
+<body>
+    <div class="box">
+        <div class="imgBx">
+            <img src="photo/IMG20181125090531.jpg" alt="">
+        </div>
+        <div class="content">
+            <h2>Deepak Kumar<br><span>Creative Arts By Creator</span></h2>
+        </div>
+    </div>
+    <div class="box">
+        <div class="imgBx">
+            <img src="photo/IMG20180714184627.jpg" alt="">
+        </div>
+        <div class="content">
+            <h2>Deepak Kumar<br><span>Creative Arts By Creator</span></h2>
+        </div>
+    </div>
+    <div class="box">
+        <div class="imgBx">
+            <img src="photo/20190423_144114.jpg" alt="">
+        </div>
+        <div class="content">
+            <h2>Deepak Kumar<br><span>Creative Arts By Creator</span></h2>
+        </div>
+    </div>
+    
+    <a href="#" draggable="false">Button</a>
+    <a href="#" draggable="false">Button</a>
+
+
+    <script>
+        const buttons = document.querySelectorAll('a');
+
+        buttons.forEach( btn => {
+            btn.addEventListener("click", function(e) {
+
+                let x = e.clientX - e.target.offsetLeft;
+                let y = e.clientY - e.target.offsetTop;
+
+                let ripple = document.createElement('span');
+                ripple.style.left = x+"px";
+                ripple.style.top = y+"px";
+                this.appendChild(ripple);
+
+
+                setTimeout(()=>{
+                    ripple.remove()
+                },1000);
+            })
+        })
+    </script>
+
+</body>
+</html>
